@@ -1,0 +1,10 @@
+/catkin_ws/build
+/catkin_ws/devel
+/catkin_ws/src/CMakeLists.txt
+/catkin_ws/src/navigationer/CMakeLists.txt
+/catkin_ws/src/navigationer/package.xml
+catkin_ws/.catkin_workspace
+__pycache__/std_finder.cpython-38.pyc
+.gitignore
+catkin_ws/src/navigationer/src/__pycache__/variables.cpython-38.pyc
+__pycache__/variables.cpython-38.pyc

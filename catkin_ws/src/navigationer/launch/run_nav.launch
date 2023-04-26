@@ -1,0 +1,8 @@
+<launch>
+  <node name="campo" pkg="navigationer" type="campo.py" />
+  <node name="reactivo" pkg="navigationer" type="george.py" />
+  <node name="objective_gen" pkg="navigationer" type="ocp.py" />
+  <node name="rodear" pkg="navigationer" type="rodear.py" />
+  <node name="std_find" pkg="navigationer" type="std_finder.py" />
+  <node name="arbitro" pkg="navigationer" type="suecia.py" />
+</launch>
