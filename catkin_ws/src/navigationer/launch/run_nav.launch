@@ -1,0 +1,5 @@
+<launch>
+  <node name="campo" pkg="navigationer" type="campo.py" />
+  <node name="george" pkg="navigationer" type="george.py" />
+  <node name="ocp" pkg="navigationer" type="ocp.py" />
+</launch>
