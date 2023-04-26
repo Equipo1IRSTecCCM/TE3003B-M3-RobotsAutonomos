@@ -188,8 +188,8 @@ def main():
         StateMachine.add('TURN', Turn(), transitions={'turnr':'TURN','fowardr':'FOWARD','success':'FOWARD'})
         StateMachine.add('FOWARD', Foward(), transitions={'turnr':'TURN','fowardr':'FOWARD','success':'TURN'})
     
-    sis = smach_ros.IntrospectionServer('server_name', sm, '/SM_ROOT')
-    sis.start()
+    #sis = smach_ros.IntrospectionServer('server_name', sm, '/SM_ROOT')
+    #sis.start()
     
     outcome = sm.execute()
     '''

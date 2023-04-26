@@ -2,4 +2,5 @@
   <node name="campo" pkg="navigationer" type="campo.py" />
   <node name="george" pkg="navigationer" type="george.py" />
   <node name="ocp" pkg="navigationer" type="ocp.py" />
+  <node name="std_find" pkg="navigationer" type="std_finder.py" />
 </launch>

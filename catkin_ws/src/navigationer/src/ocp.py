@@ -63,7 +63,6 @@ class map:
                 self.change = True
             else:
                 self.change = False
-            #self.pub_debug.publish(dist)
         except:
             pass
     def show(self):
@@ -76,7 +75,6 @@ class map:
         except:
             pass
     def find_nearest(self, display = False):
-        #self.pub_debug.publish(self.dist)
         
         img =np.reshape(self.occupancy_grid,(self.occupancy_grid.shape[0],self.occupancy_grid.shape[1],1))
         
@@ -102,7 +100,6 @@ class map:
         min_idx = None
         count = 0
         while count < distances.shape[0]/10 or score < 2:
-            #self.pub_debug.publish(count)
             idx = distances.argmax()
             self.nearest = indices[:,idx]
             score = self.in_danger_zone(self.nearest)
