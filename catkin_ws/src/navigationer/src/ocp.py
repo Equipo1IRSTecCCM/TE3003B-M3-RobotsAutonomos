@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+
+# Find objective ppoints
 import rospy
 from nav_msgs.msg import OccupancyGrid
 from nav_msgs.msg import Odometry
