@@ -1,13 +1,5 @@
 #!/usr/bin/env python3
-# 
-
-
-# ITESM CCM
-# Oscar Fuentes
-# 
-# 
-# Para correr este notebook debe tenerse familiaridad con términos de ROS como tópicos, listeners, publishers, mensajes etc.
-# 
+# Campos potenciales
 
 
 

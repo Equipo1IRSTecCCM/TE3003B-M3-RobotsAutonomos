@@ -5,4 +5,5 @@
   <node name="rodear" pkg="navigationer" type="rodear.py" />
   <node name="std_find" pkg="navigationer" type="std_finder.py" />
   <node name="arbitro" pkg="navigationer" type="suecia.py" />
+  <node name="chair_detect" pkg="navigationer" type="sillas.py" />
 </launch>

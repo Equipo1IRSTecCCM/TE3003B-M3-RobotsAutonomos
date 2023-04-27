@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+
+#Find std_of last position
 import rospy
 import numpy as np
 from std_msgs.msg import Float32

@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-# %% [markdown]
+
 # # Tarea 32 - Rodear objetos
 # ## Equipo 3
 
-# %% [markdown]
+
 # Primero se importan las librerias necesarias.
 
-# %%
+
 import rospy
 import numpy as np
 from geometry_msgs.msg import Twist
@@ -17,10 +17,10 @@ import smach_ros
 from tf.transformations import euler_from_quaternion
 from time import sleep
 
-# %% [markdown]
+
 # Luego se declaran variables globales.
 
-# %%
+
 pos = Twist()
 pub = rospy.Publisher('/cmd_vel_rod',Twist,queue_size=10)
 rospy.init_node('rodearsm')
@@ -29,10 +29,10 @@ nfb = False
 ilb = False
 sl = 0
 
-# %% [markdown]
+
 # Declaramos el callback de Odometría el cual se encarga de dar la posición del robot de acuerdo a sus cálculos de las velocidades hechas en cada motor.
 
-# %%
+
 def callbackOdom(msg):
     global pos
     pos.linear.x = msg.pose.pose.position.x
@@ -40,19 +40,19 @@ def callbackOdom(msg):
     rot_q = msg.pose.pose.orientation
     (_,_,pos.angular.z) = euler_from_quaternion([rot_q.x, rot_q.y, rot_q.z, rot_q.w])
 
-# %% [markdown]
+
 # Esta función sirve para dar la diferencia de ángulo entre dos ángulos en el plano cartesiano.
 
-# %%
+
 def smallest_angle_diff(t,s):
     a = t - s
     a -= 2*np.pi if a > np.pi else -2*np.pi if a < -np.pi else 0
     return a
 
-# %% [markdown]
+
 # Este callback verifica con el LiDAR si tiene obstaculos enfrente y la pared a su izquierda. De los puntos de la pared calcula con regresion el error de ángulo el cual seria la pendiente.
 
-# %%
+
 def callbackScan(msg):
     global nfb
     global ilb
@@ -93,10 +93,10 @@ def callbackScan(msg):
         py = scan_l*np.sin(anglesl)
         sl = np.sum((px - np.average(px))*(py -np.average(py)))/np.sum((px - np.average(px))**2)
 
-# %% [markdown]
+
 # El estado de giro solo se activa cuando tiene obstaculo enfrente.
 
-# %%
+
 class Turn(State):
     def __init__(self):
         State.__init__(self, outcomes=['a','at','t'])
@@ -116,10 +116,10 @@ class Turn(State):
         else:
             return "at"
 
-# %% [markdown]
+
 # El estado de avance y giro se activa cuando no hay obstaculos enfrente ni a su izquierda.
 
-# %%
+
 class AdvanceTurn(State):
     def __init__(self):
         State.__init__(self, outcomes=['a','at','t'])
@@ -140,10 +140,10 @@ class AdvanceTurn(State):
         else:
             return "at"
 
-# %% [markdown]
+
 # El estado de avance se activa cuando no hay obstáculo en frente y tiene pared a su izquierda. Para estar paralelo a la pared utiliza la pendiente como error donde 0 sería que está totalmente paralelo.
 
-# %%
+
 class Advance(State):
     def __init__(self):
         State.__init__(self, outcomes=['a','at','t'])
@@ -166,10 +166,10 @@ class Advance(State):
         else:
             return "at"
 
-# %% [markdown]
+
 # Ésta es la función principal donde se inicializan los nodos suscriptores y la máquina de estados.
 
-# %%
+
 def main():
     global pos
     global rate
@@ -186,8 +186,8 @@ def main():
         StateMachine.add('ADVANCE', Advance(), transitions={'t':'TURN','at':'ADVANCETURN','a':'ADVANCE'})
         StateMachine.add('ADVANCETURN', AdvanceTurn(), transitions={'t':'TURN','at':'ADVANCETURN','a':'ADVANCE'})
     
-    sis = smach_ros.IntrospectionServer('server_name', sm, '/SM_ROOT/ROD')
-    sis.start()
+    #sis = smach_ros.IntrospectionServer('server_name', sm, '/SM_ROOT/ROD')
+    #sis.start()
     
     outcome = sm.execute()
     
@@ -196,10 +196,10 @@ def main():
     else:
         sleep(1)
 
-# %% [markdown]
+
 # Finalmente, para ejecutar el código oficialmente (sin antes haber ya ejecutado las celdas anteriores y lanzado el mundo de turtlebot en Gazebo), se ejecuta la siguiente celda para iniciar con el proceso:
 
-# %%
+
 if __name__ == '__main__':
     try:
         main()

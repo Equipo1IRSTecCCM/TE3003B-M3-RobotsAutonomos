@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# %%
+
+#Arbitro
 import math
 import numpy as np
 import rospy
@@ -14,7 +15,7 @@ from std_msgs.msg import Float32
 from std_msgs.msg import Bool
 from variables import *
 
-# %%
+
 rospy.init_node('CesarArturoRamos') 
 base_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
 c2e = []
@@ -26,7 +27,7 @@ th = 0.0
 obj_x = 0.0
 obj_y = 0.0
 
-# %%
+
 def newOdom (msg):
     global x
     global y
@@ -42,7 +43,7 @@ def newOdom (msg):
     th=euler[2]
 sub_odom = rospy.Subscriber("/odom",Odometry,newOdom)
 
-# %%
+
 
 
 class Laser():
@@ -63,10 +64,10 @@ class Laser():
         return self._scan_data
 laser = Laser()  #instanciamos una clase 
 
-# %%
 
 
-# %%
+
+
 def update_c2e(data):
     global c2e
     if len(c2e) >= n_checks:
@@ -98,27 +99,27 @@ def update_e2c(data):
         if len(e2c) == n_checks:
             e2c = np.array(e2c)
 
-# %%
+
 go = False
 def get_go(msg):
     global go
     go = msg.data
 
-# %%
+
 std_dev = 0.0
 def get_std(msg):
     global std_dev
     std_dev = msg.data
     
 
-# %%
+
 class TwistSub:
     def __init__(self):
         self.data = Twist()
     def callback(self, msg):
         self.data = msg
 
-# %%
+
 
 def get_obj(msg):
     global obj_x
@@ -127,7 +128,7 @@ def get_obj(msg):
     obj_x = msg.point.x
     obj_y = msg.point.y
 
-# %%
+
 x = 0
 y = 0
 th = 0
@@ -140,7 +141,7 @@ sub_std = rospy.Subscriber('/nav/std',Float32,get_std)
 pub_restart = rospy.Publisher('/nav/restart',Bool,queue_size=10)
 
 
-# %%
+
 class Campos(smach.State):
     def __init__(self):
         smach.State.__init__(self, outcomes=['estancado','rod','todoOk'])
@@ -235,9 +236,7 @@ class Rodear(smach.State):
             return 'liberado'
         
 
-#Crear clase de rodear
-#Guardar punto donde se cambia de estado
-#Si estos cambian poco, se pasa a este estado y se quita cuando tiene campo de visión sin estorbos con el objetivo
+
 
 def main():
     # Create a SMACH state machine
@@ -259,7 +258,7 @@ def main():
                                             'todoOk':'Rodear'})
 
     # Create and start the introspection server
-    sis = smach_ros.IntrospectionServer('server_name', sm, '/SM_ROOT/ARB')
+    sis = smach_ros.IntrospectionServer('server_name', sm, '/SM_ROOT')
     sis.start()
     
     # Execute SMACH plan
